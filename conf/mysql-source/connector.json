@@ -1,0 +1,19 @@
+{
+  "name": "mysql-source",
+  "config": {
+    "connector.class": "io.debezium.connector.mysql.MySqlConnector",
+    "tasks.max": "1",
+    "database.hostname": "mysql",
+    "database.port": "3306",
+    "database.user": "root",
+    "database.password": "mytutor",
+    "database.server.id": "1",
+    "database.server.name": "mytutor",
+    "database.whitelist": "mytutor",
+    "database.history.kafka.bootstrap.servers": "kafka1:19092",
+    "database.history.kafka.topic": "schema-changes.inventory",
+    "table.whitelist": "mytutor.applicants,mytutor.addresses",
+    "column.mask.hash.SHA-256.with.salt.12345": "mytutor.applicants.firstName",
+    "column.truncate.to.1.chars": "mytutor.applicants.lastName"
+  }
+}

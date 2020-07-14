@@ -1,0 +1,32 @@
+{
+  "name": "mysql-sink-addresses",
+  "config": {
+    "connector.class": "io.confluent.connect.jdbc.JdbcSinkConnector",
+    "connection.url": "jdbc:mysql://mysql:3306/mytutor_redacted?verifyServerCertificate=false&requireSSL=false&useSSL=false&nullCatalogMeansCurrent=true",
+    "connection.user" : "root",
+    "connection.password": "mytutor",
+    "dialect.name": "MySqlDatabaseDialect",
+    "insert.mode": "upsert",
+    "pk.mode": "record_key",
+    "pk.fields": "id",
+    "auto.create": true,
+    "auto.evolve": true,
+    "task.max": 1,
+    "topics": "mytutor.mytutor.addresses",
+    "table.name.format": "addresses",
+    "key.converter.schema.registry.url" :"http://kafka-schema-registry:8081",
+    "value.converter.schema.registry.url" :"http://kafka-schema-registry:8081",
+    "key.converter": "io.confluent.connect.avro.AvroConverter",
+    "value.converter": "io.confluent.connect.avro.AvroConverter",
+    "transforms": "unwrap,TimestampConverter,TimestampConverter1",
+    "transforms.unwrap.type": "io.debezium.transforms.ExtractNewRecordState",
+    "transforms.TimestampConverter.type": "org.apache.kafka.connect.transforms.TimestampConverter$Value",
+    "transforms.TimestampConverter.format": "yyyy-MM-dd hh:mm:ss.SSSSSS",
+    "transforms.TimestampConverter.target.type": "Timestamp",
+    "transforms.TimestampConverter.field": "createdOn",
+    "transforms.TimestampConverter1.type": "org.apache.kafka.connect.transforms.TimestampConverter$Value",
+    "transforms.TimestampConverter1.format": "yyyy-MM-dd hh:mm:ss.SSSSSS",
+    "transforms.TimestampConverter1.target.type": "Timestamp",
+    "transforms.TimestampConverter1.field": "modifiedOn"
+  }
+}
